@@ -10,10 +10,11 @@
 {% verbatim %}
   <div class="container-fluid" ng-controller="movieCtrl">
     <div class="well well-sm">
-      <strong>Category Title</strong>
+      <strong>Movies</strong>
       <div class="btn-group">
-        <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
-        </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
+        <!-- <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
+        </span>List</a>  -->
+        <a href="#" id="grid" class="btn btn-default btn-sm"><span
         class="glyphicon glyphicon-th"></span>Grid</a>
       </div>
     </div>
@@ -44,9 +45,9 @@
         <div class="well" style="width:100%; margin-bottom:5px; padding:10px;" ng-click="isCollapsedSortBy = !isCollapsedSortBy">Sort By</div>
         <div uib-collapse="isCollapsedSortBy" class="in collapse" aria-expanded="true" aria-hidden="false" style="height: auto;">
         <div class="well">
-            <div ng-repeat="i in ['Length', 'Release Date']">
+            <div ng-repeat="i in sortByList">
               <div ng-click="clickFilter(i)" style="cursor: pointer;  cursor: hand;">
-                <input type="checkbox" aria-label="..." id="{{i.name}}-{{i.id}}" > &nbsp;&nbsp;{{i}}
+                <input type="checkbox" aria-label="..." id="{{i.name}}-{{i.id}}" > &nbsp;&nbsp;{{i.name}}
               </div>
             </div>
         </div>
@@ -54,23 +55,47 @@
       </div>
 
       <div class="col-xs-9 col-lg-9">
+
+      <div ng-if="recordNotFound!=''" class="well">
+        <h3>{{recordNotFound}}</h3>
+      </div>
+
         <div id="products" class="row list-group">
-          <div class="item  col-xs-4 col-lg-4" ng-repeat="i in [1,2,3,4]">
+          <div class="item  col-xs-4 col-lg-4" ng-repeat="i in movieList">
             <div class="thumbnail">
-              <img class="group list-group-image" src="/static/img/dummy.jpg" alt="" />
+              <img class="group list-group-image" ng-src="/{{i.imageUrl}}" alt="" style="width:400px;" />
               <div class="caption">
                 <h4 class="group inner list-group-item-heading">
-                  Product title</h4>
+                  {{i.title}}</h4>
                   <p class="group inner list-group-item-text">
-                    Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                    sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                    {{i.description}}
+                  </p>
                     <div class="row">
                       <div class="col-xs-12 col-md-6">
-                        <p class="lead">
-                          $21.000</p>
+                          <span class="label label-success">Release Date</span><br>
+                          <p class="" style="margin:5px 0px 5px 0px;">
+                            {{i.releaseDate| date:'MMM dd yyyy'}}
+                          </p>
                         </div>
                         <div class="col-xs-12 col-md-6">
-                          <a class="btn btn-success" href="http://www.jquery2dotnet.com">Add to cart</a>
+                          <span class="label label-warning">Length</span><br>
+                          <p class="" style="margin:5px 0px 5px 0px;">
+                            {{i.movieLength}} Minutes
+                          </p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12 col-md-3" ng-repeat="lang in i.language_list">
+                          <p >
+                            <span class="well well-sm" style="padding:2px;">{{lang}}</span>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12 col-md-3" ng-repeat="genre in i.genre_list">
+                          <p >
+                            <span class="well well-sm" style="padding:2px;">{{genre}}</span>
+                          </p>
                         </div>
                       </div>
                     </div>
