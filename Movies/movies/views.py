@@ -7,6 +7,9 @@ from models import Movie,Category,Language,Genre,Relationship
 import json, datetime
 from django.shortcuts import render
 
+def landing_page(request):
+	return render_to_response('index.html')
+
 def show_all_movies(request):
 	movie=Movie.objects.all()
 	movieList=[]

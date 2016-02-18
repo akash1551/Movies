@@ -16,14 +16,18 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from .views import(
-	show_all_movies,
-	save_movie_data,
+    show_all_movies,
+    save_movie_data,
+    landing_page,
 	)
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^allmovie/',show_all_movies),
+    url(r'^',landing_page),
     url(r'^save_movies/',save_movie_data),
-]
+]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
