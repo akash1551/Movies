@@ -16,9 +16,13 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from .views import(
+	show_all_movies,
+	save_movie_data,
+	)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^allmovie/',Movies.views.show_all_movies),
-    url(r'^savedata/',Movies.views.show_all_movies),
+    url(r'^allmovie/',show_all_movies),
+    url(r'^savedata/',save_movie_data),
 ]
