@@ -20,4 +20,5 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^allmovie/',Movies.views.show_all_movies),
+    url(r'^savedata/',Movies.views.show_all_movies),
 ]
