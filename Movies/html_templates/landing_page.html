@@ -23,7 +23,9 @@
         <div uib-collapse="isCollapsedLanguage" class="in collapse" aria-expanded="true" aria-hidden="false" style="height: auto;">
         <div class="well">
             <div ng-repeat="i in lenguageList">
-              <input type="checkbox" aria-label="..." ng-click="clickFilter(i)"> &nbsp;&nbsp;{{i.name}}
+            <div ng-click="clickFilter(i)" style="cursor: pointer;  cursor: hand;">
+              <input type="checkbox" aria-label="..." id="{{i.name}}-{{i.id}}"> &nbsp;&nbsp;{{i.name}}
+            </div>
             </div>
         </div>
         </div>
@@ -32,7 +34,9 @@
         <div uib-collapse="isCollapsedGenere" class="in collapse" aria-expanded="true" aria-hidden="false" style="height: auto;">
         <div class="well">
           <div ng-repeat="i in genreList">
-            <input type="checkbox" aria-label="..." ng-click="clickFilter(i)" > &nbsp;&nbsp;{{i.name}} 
+            <div ng-click="clickFilter(i)" style="cursor: pointer;  cursor: hand;">
+              <input type="checkbox" aria-label="..." id="{{i.name}}-{{i.id}}"> &nbsp;&nbsp;{{i.name}} 
+            </div>
           </div>
         </div>
         </div>
@@ -41,7 +45,9 @@
         <div uib-collapse="isCollapsedSortBy" class="in collapse" aria-expanded="true" aria-hidden="false" style="height: auto;">
         <div class="well">
             <div ng-repeat="i in ['Length', 'Release Date']">
-              <input type="checkbox" aria-label="..." value="{{i}}" ng-click="clickFilter(i)"> &nbsp;&nbsp;{{i}}
+              <div ng-click="clickFilter(i)" style="cursor: pointer;  cursor: hand;">
+                <input type="checkbox" aria-label="..." id="{{i.name}}-{{i.id}}" > &nbsp;&nbsp;{{i}}
+              </div>
             </div>
         </div>
         </div>
@@ -71,9 +77,9 @@
                   </div>
                 </div>
               </div>
-            </div>
-
+              <uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
           </div>
+            </div>
         </div>
 {% endverbatim %}
         <script type="text/javascript"  src="static/js/jquery.min.js"></script>
@@ -83,4 +89,3 @@
         <script type="text/javascript"  src="static/js/ui-bootstrap-tpls-1.1.2.min.js"></script>
       </body>
       </html>
-}
