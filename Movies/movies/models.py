@@ -13,10 +13,6 @@ class Movie(models.Model):
 	movieLength = models.IntegerField()
 	releaseDate = models.DateField("%b %d %Y")
 
-class Category(models.Model):
-	language = models.IntegerField()
-	genre = models.IntegerField()
-
 class Language:
 	English = 0
 	Hindi = 1
@@ -51,6 +47,10 @@ class Genre:
 		(Famous_Directors,"Famous Directors"),(Fantasy,"Fantasy"),(Experimental,"Experimental"),(Bed_Time_Stories,"Bed Time Stories"),
 		(Dark,"Dark"),(Drama,"Drama"),(Short_Doc,"Short Doc"),(Oscar_Winning,"Oscar Winning"),
 		(Family,"Family"),(Surreal,"Surreal"),(Space,"Space"))
+
+class Category(models.Model):
+	language = models.IntegerField(choices=Language.LANGUAGECHOICES)
+	genre = models.IntegerField(choices=Genre.GENRECHOICES)
 
 class Relationship(models.Model):
 	taxonomyId = models.ForeignKey('Category')
