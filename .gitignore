@@ -1,0 +1,10 @@
+*.pyc
+Media/
+db.sqlite3
+/Movies/db.sqlite3
+*~
+migrations/
+/Movies/movies/migrations/*
+
+
+
