@@ -12,4 +12,7 @@ $(document).ready(function() {
     });
 });
 
+angular.module("movieApp", ['ui.bootstrap'])
+.controller("movieCtrl", function($scope,$http){
+});
 
