@@ -14,5 +14,19 @@ $(document).ready(function() {
 
 angular.module("movieApp", ['ui.bootstrap'])
 .controller("movieCtrl", function($scope,$http){
+
+    var init = function(){
+
+    }
+    init();
+
+    $scope.filterList = []
+
+    $scope.clickFilter = function(obj){
+        $scope.filterList.push(obj);
+        console.log($scope.filterList)
+    }
+
+
 });
 

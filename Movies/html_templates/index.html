@@ -23,7 +23,7 @@
         <div uib-collapse="isCollapsedLanguage" class="in collapse" aria-expanded="true" aria-hidden="false" style="height: auto;">
         <div class="well">
             <div ng-repeat="i in ['English', 'Tamil']">
-              <input type="checkbox" aria-label="..." value="{{i}}"> &nbsp;&nbsp;{{i}}
+              <input type="checkbox" aria-label="..." value="{{i}}" ng-click="clickFilter(i)"> &nbsp;&nbsp;{{i}}
             </div>
         </div>
         </div>
@@ -32,8 +32,17 @@
         <div uib-collapse="isCollapsedGenere" class="in collapse" aria-expanded="true" aria-hidden="false" style="height: auto;">
         <div class="well">
           <div ng-repeat="i in ['Action', 'Comedy']">
-            <input type="checkbox" aria-label="..." value="{{i}}"> &nbsp;&nbsp;{{i}} 
+            <input type="checkbox" aria-label="..." value="{{i}}" ng-click="clickFilter(i)" > &nbsp;&nbsp;{{i}} 
           </div>
+        </div>
+        </div>
+
+        <div class="well" style="width:100%; margin-bottom:5px; padding:10px;" ng-click="isCollapsedSortBy = !isCollapsedSortBy">Sort By</div>
+        <div uib-collapse="isCollapsedSortBy" class="in collapse" aria-expanded="true" aria-hidden="false" style="height: auto;">
+        <div class="well">
+            <div ng-repeat="i in ['Length', 'Release Date']">
+              <input type="checkbox" aria-label="..." value="{{i}}" ng-click="clickFilter(i)"> &nbsp;&nbsp;{{i}}
+            </div>
         </div>
         </div>
       </div>
