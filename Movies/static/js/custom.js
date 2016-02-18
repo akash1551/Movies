@@ -15,16 +15,25 @@ $(document).ready(function() {
 angular.module("movieApp", ['ui.bootstrap'])
 .controller("movieCtrl", function($scope,$http){
 
-    var init = function(){
+    $scope.selectedFilterList = []
+    var searchFilter = function(){
+        $http({method: 'GET', url: '/filter/list/'})
+            .then(function successCallback(response) {
+                $scope.genreList = response.data.genreList;
+                $scope.lenguageList = response.data.languageList;
+            }, function errorCallback(response) {
+               
+            });
+    }
 
+    var init = function(){
+        searchFilter()
     }
     init();
 
-    $scope.filterList = []
-
     $scope.clickFilter = function(obj){
-        $scope.filterList.push(obj);
-        console.log($scope.filterList)
+        $scope.selectedFilterList.push(obj);
+        console.log($scope.selectedFilterList)
     }
 
 

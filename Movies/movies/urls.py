@@ -22,12 +22,14 @@ from .views import(
     show_all_movies,
     save_movie_data,
     landing_page,
+    get_language_and_genre,
 	)
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^allmovie/',show_all_movies),
-    url(r'^',landing_page),
+    url(r'^$',landing_page),
+    url(r'^filter/list/',get_language_and_genre),
     url(r'^save_movies/',save_movie_data),
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

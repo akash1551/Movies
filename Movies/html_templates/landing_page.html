@@ -22,8 +22,8 @@
         <div class="well" style="width:100%; margin-bottom:5px; padding:10px;" ng-click="isCollapsedLanguage = !isCollapsedLanguage">Language</div>
         <div uib-collapse="isCollapsedLanguage" class="in collapse" aria-expanded="true" aria-hidden="false" style="height: auto;">
         <div class="well">
-            <div ng-repeat="i in ['English', 'Tamil']">
-              <input type="checkbox" aria-label="..." value="{{i}}" ng-click="clickFilter(i)"> &nbsp;&nbsp;{{i}}
+            <div ng-repeat="i in lenguageList">
+              <input type="checkbox" aria-label="..." ng-click="clickFilter(i)"> &nbsp;&nbsp;{{i.name}}
             </div>
         </div>
         </div>
@@ -31,8 +31,8 @@
         <div class="well" style="width:100%; margin-bottom:5px; padding:10px;" ng-click="isCollapsedGenere = !isCollapsedGenere">Genere</div>
         <div uib-collapse="isCollapsedGenere" class="in collapse" aria-expanded="true" aria-hidden="false" style="height: auto;">
         <div class="well">
-          <div ng-repeat="i in ['Action', 'Comedy']">
-            <input type="checkbox" aria-label="..." value="{{i}}" ng-click="clickFilter(i)" > &nbsp;&nbsp;{{i}} 
+          <div ng-repeat="i in genreList">
+            <input type="checkbox" aria-label="..." ng-click="clickFilter(i)" > &nbsp;&nbsp;{{i.name}} 
           </div>
         </div>
         </div>

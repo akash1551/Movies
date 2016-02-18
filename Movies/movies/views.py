@@ -3,12 +3,26 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from django.template import Context
 from django.views.generic.base import TemplateView 
-from models import Movie,Category,Language,Genre,Relationship
+from models import Movie,Language,Genre
 import json, datetime
 from django.shortcuts import render
 
 def landing_page(request):
-	return render_to_response('index.html')
+	return render_to_response('landing_page.html')
+
+def get_language_and_genre(request):
+	languageObj = Language.objects.all()
+	genreObj = Genre.objects.all()
+	languageList = []
+	genreList = []
+	for i in languageObj:
+		obj = {"id":i.id,"name":i.name, "tag": "LANGUAGE"}
+		languageList.append(obj)
+	for i in genreObj:
+		obj = {"id":i.id,"name":i.name, "tag": "GENRE"}
+		genreList.append(obj)
+	return HttpResponse(json.dumps({"languageList":languageList,"genreList":genreList,"status":True}), content_type="application/json")
+	
 
 def show_all_movies(request):
 	movie=Movie.objects.all()
@@ -42,27 +56,3 @@ def save_movie_data(request):
 		return HttpResponse(json.dumps({"validation": "Delails saved successfully","status":True}), content_type="application/json")
 	else:
 		return HttpResponse(json.dumps({"validation": "Something Went Wrong","status":False}), content_type="application/json")
-
-def show_movies_filter_by_language(request):
-	jsonObj = json.loads(request.body)
-	languageId = jsonObj['languageId']
-	ralationshipObj = Relationship.objects.filter(taxonomyId__language__id=languageId)
-	movieList = []
-	for i in relationshipObj:
-		image = str(i.movie.image).split('.')[0]+'.png'
-		date = int(i.movie.releaseDate.strftime('%s'))*1000
-		movieObj = {"title":i.movie.title,"description":i.movie.description,"image":"Media/"+image,"releaseDate":i.movie.date}
-		movieList.append(movieObj)
-	return HttpResponse(json.dumps({"movieList":movieList,"status":True}), content_type="application/json")
-
-def show_movies_filter_by_language(request):
-	jsonObj = json.loads(request.body)
-	genreId = jsonObj['genreId']
-	ralationshipObj = Relationship.objects.filter(taxonomyId__language__id=genreId)
-	movieList = []
-	for i in relationshipObj:
-		image = str(i.movie.image).split('.')[0]+'.png'
-		date = int(i.movie.releaseDate.strftime('%s'))*1000
-		movieObj = {"title":i.movie.title,"description":i.movie.description,"image":"Media/"+image,"releaseDate":i.movie.date}
-		movieList.append(movieObj)
-	return HttpResponse(json.dumps({"movieList":movieList,"status":True}), content_type="application/json")
