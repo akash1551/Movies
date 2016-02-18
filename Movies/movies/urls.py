@@ -25,5 +25,5 @@ from .views import(
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^allmovie/',show_all_movies),
-    url(r'^allmovie/',save_movie_data),
+    url(r'^save_movies/',save_movie_data),
 ]
