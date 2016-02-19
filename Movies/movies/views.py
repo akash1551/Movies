@@ -9,7 +9,7 @@ from django.shortcuts import render
 from django.db.models import Q
 
 def landing_page(request):
-	return render_to_response('landing_page.html')
+	return render_to_response('html_templates/landing_page.html')
 
 def get_language_and_genre(request):
 	languageObj = Language.objects.all()
