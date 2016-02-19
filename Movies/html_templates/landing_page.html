@@ -7,7 +7,7 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
 </head>
-<body>
+<body ng-cloak>
 {% verbatim %}
 <div class="well well-sm">
   <strong>Movies</strong>
@@ -106,7 +106,7 @@
                   </div>
                 </div>
               </div>
-              <uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" items-per-page="itemPerPage" boundary-link-numbers="true" rotate="false" ng-click="pageChanged()"></uib-pagination>
+              <uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" items-per-page="itemPerPage" boundary-link-numbers="true" rotate="false" ng-click="pageChanged()" ng-if="recordNotFound==''"></uib-pagination>
           </div>
             </div>
         </div>
