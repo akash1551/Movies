@@ -99,7 +99,9 @@ angular.module("movieApp", ['ui.bootstrap', 'angular-loading-bar'])
             console.log($scope.selectedFilterList)
             getMovieList();
         }else{
-            $scope.selectedFilterList.pop(obj);
+            var index = $scope.selectedFilterList.indexOf(obj);
+            $scope.selectedFilterList.splice(index, 1);     
+            // $scope.selectedFilterList.pop(obj);
             console.log($scope.selectedFilterList)
             getMovieList();
         }
