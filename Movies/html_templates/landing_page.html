@@ -33,9 +33,9 @@
         </div>
         </div>
 
-        <div class="well" style="width:100%; margin-bottom:5px; padding:10px;" ng-click="isCollapsedGenere = !isCollapsedGenere">Genere</div>
-        <div uib-collapse="isCollapsedGenere" class="in collapse" aria-expanded="true" aria-hidden="false" style="height: auto;">
-        <div class="well">
+        <div class="well" style="width:100%; margin-bottom:5px; padding:10px;" ng-click="isCollapsedGenere = !isCollapsedGenere">Genre</div>
+        <div uib-collapse="isCollapsedGenere" class="in collapse" aria-expanded="true" aria-hidden="false">
+        <div class="well" style="max-height: 200px; overflow-y: scroll;">
           <div ng-repeat="i in genreList">
             <div ng-click="clickFilter(i, event)" style="cursor: pointer;  cursor: hand;">
               <i class="fa fa-fw fa-square-o" ng-show="!i.isSelected"></i>
@@ -67,7 +67,7 @@
         <div id="products" class="row list-group">
           <div class="item  col-xs-4 col-lg-4" ng-repeat="i in movieList">
             <div class="thumbnail">
-              <img class="group list-group-image" ng-src="/{{i.imageUrl}}" alt="" style="width:400px;" />
+              <img class="group list-group-image" ng-src="/{{i.imageUrl}}" alt="" style="width:300px; height=400px; " />
               <div class="caption">
                 <h4 class="group inner list-group-item-heading">
                   {{i.title}}</h4>
