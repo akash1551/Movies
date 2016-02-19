@@ -72,7 +72,7 @@
                 <h4 class="group inner list-group-item-heading">
                   {{i.title}}</h4>
                   <p class="group inner list-group-item-text">
-                    {{i.description}}
+                    {{i.description|limitTo:300}}{{i.description.length > 300 ? '...' : ''}} 
                   </p>
                     <div class="row">
                       <div class="col-xs-12 col-md-6">
