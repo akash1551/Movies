@@ -19,20 +19,22 @@ angular.module("movieApp", ['ui.bootstrap'])
 
     $scope.recordNotFound = '';
 
-    $scope.currentPage = 1;
-    $scope.totalItems = 10;
     $scope.maxSize = 5;
-    $scope.bigTotalItems = 1;
+    $scope.bigTotalItems = 2;
     $scope.bigCurrentPage = 1;
+    $scope.itemPerPage = 10;
 
     var getMovieList = function(){
-        $http.post('/movies_by_filter/',{pageNo: $scope.currentPage, totalEntries: $scope.bigTotalItems, selectedFilterList: $scope.selectedFilterList}).
+        $http.post('/movies_by_filter/',{pageNo: $scope.bigCurrentPage, itemPerPage: $scope.itemPerPage, selectedFilterList: $scope.selectedFilterList}).
             success(function(data, status, headers, config) {
                 if (data.status){
                     console.log(data);
                     $scope.movieList = data.movieList;
                     $scope.bigTotalItems = data.totalEntries;
                     $scope.bigCurrentPage = data.pageNo;
+                    console.log('Big Current Page: ' + $scope.bigCurrentPage);
+                    console.log('Big Total Items: ' + $scope.bigTotalItems);
+                    console.log('Max Size: ' + $scope.maxSize);
                 }else{
                     $scope.recordNotFound = data.validation;
                     $scope.movieList = []
@@ -43,12 +45,7 @@ angular.module("movieApp", ['ui.bootstrap'])
             });
     }
 
-    $scope.setPage = function (pageNo) {
-        $scope.currentPage = pageNo;
-    };
-
     $scope.pageChanged = function() {
-        console.log('Page changed to: ' + $scope.currentPage);
         console.log('Big Current Page: ' + $scope.bigCurrentPage);
         console.log('Big Total Items: ' + $scope.bigTotalItems);
         console.log('Max Size: ' + $scope.maxSize);
@@ -73,16 +70,14 @@ angular.module("movieApp", ['ui.bootstrap'])
     init();
 
     $scope.clickFilter = function(obj){
-        var checkbox = $('#'+obj.name+"-"+obj.id);
-        console.log(checkbox.is(":checked"))
-        if (checkbox.is(":checked") == false){
+        obj.isSelected=!obj.isSelected;
+        console.log(obj.isSelected)
+        if (obj.isSelected){
             $scope.selectedFilterList.push(obj);
-            checkbox.prop('checked', true);
             console.log($scope.selectedFilterList)
             getMovieList();
         }else{
             $scope.selectedFilterList.pop(obj);
-            checkbox.prop('checked', false);
             console.log($scope.selectedFilterList)
             getMovieList();
             }

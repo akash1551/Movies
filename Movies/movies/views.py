@@ -16,12 +16,12 @@ def get_language_and_genre(request):
 	genreObj = Genre.objects.all()
 	languageList = []
 	genreList = []
-	sortByList = [{"id":1,"name":"Length", "tag": "SORT"}, {"id":2,"name":"Release Date", "tag": "SORT"}]
+	sortByList = [{"id":1,"name":"Length", "tag": "SORT", "isSelected": False, "databaseSortParameter": "movieLength"}, {"id":2,"name":"Release Date", "tag": "SORT", "isSelected": False, "databaseSortParameter": "-releaseDate"}]
 	for i in languageObj:
-		obj = {"id":i.id,"name":i.name, "tag": "LANGUAGE"}
+		obj = {"id":i.id,"name":i.name, "tag": "LANGUAGE", "isSelected": False}
 		languageList.append(obj)
 	for i in genreObj:
-		obj = {"id":i.id,"name":i.name, "tag": "GENRE"}
+		obj = {"id":i.id,"name":i.name, "tag": "GENRE", "isSelected": False}
 		genreList.append(obj)
 	return HttpResponse(json.dumps({"sortByList": sortByList, "languageList":languageList,"genreList":genreList,"status":True}), content_type="application/json")
 	
@@ -29,56 +29,64 @@ def movies_by_filter(request):
 	jsonObj = json.loads(request.body)
 	selectedFilterList = jsonObj['selectedFilterList']
 	pageNo = jsonObj['pageNo']
-	totalEntries = jsonObj['totalEntries']
-	exclude_page_entries = (pageNo - 1) * totalEntries
-	next_page_entries = exclude_page_entries + totalEntries
+	totalEntries = jsonObj['itemPerPage']
+	excludePageEntries = (pageNo - 1) * totalEntries
+	nextPageEntries = excludePageEntries + totalEntries
 	if len(selectedFilterList) == 0:
-		movie_listing_objs_list = Movie.objects.all().distinct()[exclude_page_entries:next_page_entries]
-		total_entries = Movie.objects.all().distinct()
-		total_entries = len(total_entries)
-		print 'total_entries------>', total_entries
+		movieListingObjsList = Movie.objects.all().distinct()[excludePageEntries:nextPageEntries]
+		totalEntries = Movie.objects.all().distinct()
+		totalEntries = len(totalEntries)
+		print 'totalEntries------>', totalEntries
 	else:
-		language_list = []
-		genre_list = []
+		languageList = []
+		genreList = []
+		sortList = []
 		
 		for obj in selectedFilterList:
 			if obj['tag'] == "LANGUAGE":
-				language_list.append(obj['name'].strip())
+				languageList.append(obj['name'].strip())
 			if obj['tag'] == "GENRE":
-				genre_list.append(obj['name'].strip())
+				genreList.append(obj['name'].strip())
+			if obj['tag'] == "SORT":
+				sortList.append(obj['databaseSortParameter'].strip())
 	
-		query_list = []
-		if len(language_list) != 0:
-			print 'language_list-->', language_list
-			language_query = reduce(lambda x, y: x | y, [Q(language__name__iexact=word) for word in language_list])
-			query_list.append(language_query)
-		if len(genre_list) != 0:
-			print 'genre_list-->', genre_list
-			genre_query = reduce(lambda x, y: x | y, [Q(genre__name__iexact=word) for word in genre_list])
-			query_list.append(genre_query)
+		queryList = []
+		if len(languageList) != 0:
+			print 'languageList-->', languageList
+			language_query = reduce(lambda x, y: x | y, [Q(language__name__iexact=word) for word in languageList])
+			queryList.append(language_query)
+		if len(genreList) != 0:
+			print 'genreList-->', genreList
+			genre_query = reduce(lambda x, y: x | y, [Q(genre__name__iexact=word) for word in genreList])
+			queryList.append(genre_query)
 
-		if len(query_list) != 0:
-			print 'query_list-->', query_list
-			movie_listing_objs_list = Movie.objects.filter(reduce(lambda x, y: x & y, query_list)).distinct()[exclude_page_entries:next_page_entries]
-			total_entries = movie_listing_objs_list.count()
-			print total_entries
+		sortListParameter = []
+		if len(sortList) != 0:
+			print 'sortList-->', sortList
+			genre_query = [sortListParameter.append(word) for word in sortList]
+
+		if len(queryList) != 0:
+			print 'queryList-->', queryList
+			movieListingObjsList = Movie.objects.filter(reduce(lambda x, y: x & y, queryList)).order_by(*sortListParameter).distinct()[excludePageEntries:nextPageEntries]
+			totalEntries = movieListingObjsList.count()
+			print totalEntries
 		else:
-			movie_listing_objs_list = Movie.objects.all().distinct()[exclude_page_entries:next_page_entries]
-			total_entries = movie_listing_objs_list.count()
-			print total_entries
-			print 'total_entries-->', total_entries
+			movieListingObjsList = Movie.objects.all().order_by(*sortListParameter).distinct()[excludePageEntries:nextPageEntries]
+			totalEntries = movieListingObjsList.count()
+			print totalEntries
+			print 'totalEntries-->', totalEntries
 
-	movie_list = []
-	for i in movie_listing_objs_list:
+	movieList = []
+	for i in movieListingObjsList:
 		date = int(i.releaseDate.strftime("%s")) * 1000
-		language_list = []
-		genre_list = []
-		[language_list.append(j.name) for j in i.language.all()]
-		[genre_list.append(j.name) for j in i.genre.all()]
-		obj={"imageUrl": 'Media/'+str(i.image),"releaseDate": date,"title": i.title,"movieLength": i.movieLength,"description": i.description,"language_list":language_list,"genre_list":genre_list}
-		movie_list.append(obj)
-	if len(movie_list) != 0:
-		return HttpResponse(json.dumps({'movieList':movie_list, 'status': True, 'pageNo': pageNo, 'totalEntries': total_entries}), content_type="application/json")
+		languageList = []
+		genreList = []
+		[languageList.append(j.name) for j in i.language.all()]
+		[genreList.append(j.name) for j in i.genre.all()]
+		obj={"imageUrl": 'Media/'+str(i.image),"releaseDate": date,"title": i.title,"movieLength": i.movieLength,"description": i.description,"languageList":languageList,"genreList":genreList}
+		movieList.append(obj)
+	if len(movieList) != 0:
+		return HttpResponse(json.dumps({'movieList':movieList, 'status': True, 'pageNo': pageNo, 'totalEntries': totalEntries}), content_type="application/json")
 	else:
 		return HttpResponse(json.dumps({'validation':"Record  not found..!!", 'status': False}), content_type="application/json")
 

@@ -4,20 +4,21 @@
   {% load static %}
   <title>Movies</title>
   <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
-  <link rel="stylesheet" type="text/css" href="static/css/custom.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
 </head>
 <body>
 {% verbatim %}
+<div class="well well-sm">
+  <strong>Movies</strong>
+  <div class="btn-group">
+    <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
+    </span>List</a> 
+    <a href="#" id="grid" class="btn btn-default btn-sm"><span
+    class="glyphicon glyphicon-th"></span>Grid</a>
+  </div>
+</div>
   <div class="container-fluid" ng-controller="movieCtrl">
-    <div class="well well-sm">
-      <strong>Movies</strong>
-      <div class="btn-group">
-        <!-- <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
-        </span>List</a>  -->
-        <a href="#" id="grid" class="btn btn-default btn-sm"><span
-        class="glyphicon glyphicon-th"></span>Grid</a>
-      </div>
-    </div>
     <div class="row">
     <div class="col-xs-3 col-lg-3 well">
         <div class="well" style="width:100%; margin-bottom:5px; padding:10px;" ng-click="isCollapsedLanguage = !isCollapsedLanguage">Language</div>
@@ -25,7 +26,8 @@
         <div class="well">
             <div ng-repeat="i in lenguageList">
             <div ng-click="clickFilter(i)" style="cursor: pointer;  cursor: hand;">
-              <input type="checkbox" aria-label="..." id="{{i.name}}-{{i.id}}"> &nbsp;&nbsp;{{i.name}}
+              <i class="fa fa-fw fa-square-o" ng-show="!i.isSelected"></i>
+              <i class="fa fa-fw fa-check-square-o" ng-show="i.isSelected"></i> &nbsp;&nbsp;{{i.name}}
             </div>
             </div>
         </div>
@@ -35,8 +37,9 @@
         <div uib-collapse="isCollapsedGenere" class="in collapse" aria-expanded="true" aria-hidden="false" style="height: auto;">
         <div class="well">
           <div ng-repeat="i in genreList">
-            <div ng-click="clickFilter(i)" style="cursor: pointer;  cursor: hand;">
-              <input type="checkbox" aria-label="..." id="{{i.name}}-{{i.id}}"> &nbsp;&nbsp;{{i.name}} 
+            <div ng-click="clickFilter(i, event)" style="cursor: pointer;  cursor: hand;">
+              <i class="fa fa-fw fa-square-o" ng-show="!i.isSelected"></i>
+              <i class="fa fa-fw fa-check-square-o" ng-show="i.isSelected"></i> &nbsp;&nbsp;{{i.name}} 
             </div>
           </div>
         </div>
@@ -46,8 +49,9 @@
         <div uib-collapse="isCollapsedSortBy" class="in collapse" aria-expanded="true" aria-hidden="false" style="height: auto;">
         <div class="well">
             <div ng-repeat="i in sortByList">
-              <div ng-click="clickFilter(i)" style="cursor: pointer;  cursor: hand;">
-                <input type="checkbox" aria-label="..." id="{{i.name}}-{{i.id}}" > &nbsp;&nbsp;{{i.name}}
+              <div ng-click="clickFilter(i, event)" style="cursor: pointer;  cursor: hand;">
+                <i class="fa fa-fw fa-square-o" ng-show="!i.isSelected"></i>
+                <i class="fa fa-fw fa-check-square-o" ng-show="i.isSelected"></i> &nbsp;&nbsp;{{i.name}}
               </div>
             </div>
         </div>
@@ -85,14 +89,14 @@
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col-xs-12 col-md-3" ng-repeat="lang in i.language_list">
+                        <div class="col-xs-12 col-md-3" ng-repeat="lang in i.languageList">
                           <p >
                             <span class="well well-sm" style="padding:2px;">{{lang}}</span>
                           </p>
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col-xs-12 col-md-3" ng-repeat="genre in i.genre_list">
+                        <div class="col-xs-12 col-md-3" ng-repeat="genre in i.genreList">
                           <p >
                             <span class="well well-sm" style="padding:2px;">{{genre}}</span>
                           </p>
@@ -102,7 +106,7 @@
                   </div>
                 </div>
               </div>
-              <uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
+              <uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" items-per-page="itemPerPage" boundary-link-numbers="true" rotate="false" ng-click="pageChanged()"></uib-pagination>
           </div>
             </div>
         </div>
