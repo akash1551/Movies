@@ -67,7 +67,7 @@
       </div>
 
         <div id="products" class="row list-group">
-          <div class="item  col-xs-4 col-lg-4" ng-repeat="i in movieList">
+          <div class="item  col-xs-4 col-lg-4" ng-repeat="i in movieList" ng-show="$index % 3 == 0">
             <div class="thumbnail">
               <img class="group list-group-image" ng-src="/{{i.imageUrl}}" alt="" style="width:300px; height:300px; " />
               <div class="caption">
@@ -107,6 +107,91 @@
                     </div>
                   </div>
                 </div>
+
+                
+            <div class="item  col-xs-4 col-lg-4" ng-repeat="i in movieList" ng-show="$index % 3 == 1">
+            <div class="thumbnail">
+              <img class="group list-group-image" ng-src="/{{i.imageUrl}}" alt="" style="width:300px; height:300px; " />
+              <div class="caption">
+                <h4 class="group inner list-group-item-heading">
+                  {{i.title}}</h4>
+                  <p class="group inner list-group-item-text">
+                    {{i.description|limitTo:300}}{{i.description.length > 300 ? '...' : ''}} 
+                  </p>
+                    <div class="row">
+                      <div class="col-xs-12 col-md-6">
+                          <span class="label label-success">Release Date</span><br>
+                          <p class="" style="margin:5px 0px 5px 0px;">
+                            {{i.releaseDate| date:'MMM dd yyyy'}}
+                          </p>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                          <span class="label label-warning">Length</span><br>
+                          <p class="" style="margin:5px 0px 5px 0px;">
+                            {{i.movieLength}} Minutes
+                          </p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12 col-md-3" ng-repeat="lang in i.languageList">
+                          <p >
+                            <span class="well well-sm" style="padding:2px;">{{lang}}</span>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12 col-md-3" ng-repeat="genre in i.genreList">
+                          <p >
+                            <span class="well well-sm" style="padding:2px;">{{genre}}</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+            <div class="item  col-xs-4 col-lg-4" ng-repeat="i in movieList" ng-show="$index % 3 == 2">
+            <div class="thumbnail">
+              <img class="group list-group-image" ng-src="/{{i.imageUrl}}" alt="" style="width:300px; height:300px; " />
+              <div class="caption">
+                <h4 class="group inner list-group-item-heading">
+                  {{i.title}}</h4>
+                  <p class="group inner list-group-item-text">
+                    {{i.description|limitTo:300}}{{i.description.length > 300 ? '...' : ''}} 
+                  </p>
+                    <div class="row">
+                      <div class="col-xs-12 col-md-6">
+                          <span class="label label-success">Release Date</span><br>
+                          <p class="" style="margin:5px 0px 5px 0px;">
+                            {{i.releaseDate| date:'MMM dd yyyy'}}
+                          </p>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                          <span class="label label-warning">Length</span><br>
+                          <p class="" style="margin:5px 0px 5px 0px;">
+                            {{i.movieLength}} Minutes
+                          </p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12 col-md-3" ng-repeat="lang in i.languageList">
+                          <p >
+                            <span class="well well-sm" style="padding:2px;">{{lang}}</span>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12 col-md-3" ng-repeat="genre in i.genreList">
+                          <p >
+                            <span class="well well-sm" style="padding:2px;">{{genre}}</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
               <uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" items-per-page="itemPerPage" boundary-link-numbers="true" rotate="false" ng-click="pageChanged(bigCurrentPage)" ng-if="recordNotFound==''"></uib-pagination>
           </div>
