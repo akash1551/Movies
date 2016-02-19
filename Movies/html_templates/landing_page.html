@@ -67,7 +67,8 @@
       </div>
 
         <div id="products" class="row list-group">
-          <div class="item  col-xs-4 col-lg-4" ng-repeat="i in movieList" ng-show="$index % 3 == 0">
+          <div class="item  col-xs-4 col-lg-4">
+          <div ng-repeat="i in movieList" ng-show="$index % 3 == 0">
             <div class="thumbnail">
               <img class="group list-group-image" ng-src="/{{i.imageUrl}}" alt="" style="width:300px; height:300px; " />
               <div class="caption">
@@ -106,10 +107,12 @@
                       </div>
                     </div>
                   </div>
+                </div>
                 </div>
 
                 
-            <div class="item  col-xs-4 col-lg-4" ng-repeat="i in movieList" ng-show="$index % 3 == 1">
+            <div class="item  col-xs-4 col-lg-4">
+            <div ng-repeat="i in movieList" ng-show="$index % 3 == 1">
             <div class="thumbnail">
               <img class="group list-group-image" ng-src="/{{i.imageUrl}}" alt="" style="width:300px; height:300px; " />
               <div class="caption">
@@ -149,9 +152,11 @@
                     </div>
                   </div>
                 </div>
+                </div>
 
 
-            <div class="item  col-xs-4 col-lg-4" ng-repeat="i in movieList" ng-show="$index % 3 == 2">
+            <div class="item  col-xs-4 col-lg-4">
+            <div ng-repeat="i in movieList" ng-show="$index % 3 == 2">
             <div class="thumbnail">
               <img class="group list-group-image" ng-src="/{{i.imageUrl}}" alt="" style="width:300px; height:300px; " />
               <div class="caption">
@@ -190,6 +195,7 @@
                       </div>
                     </div>
                   </div>
+                </div>
                 </div>
 
               </div>
