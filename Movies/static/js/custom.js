@@ -91,6 +91,7 @@ angular.module("movieApp", ['ui.bootstrap', 'angular-loading-bar'])
     }
 
     $scope.clickFilter = function(obj){
+        $scope.bigCurrentPage = 1;
         obj.isSelected=!obj.isSelected;
         console.log(obj.isSelected)
         if (obj.isSelected){
@@ -101,8 +102,7 @@ angular.module("movieApp", ['ui.bootstrap', 'angular-loading-bar'])
             $scope.selectedFilterList.pop(obj);
             console.log($scope.selectedFilterList)
             getMovieList();
-            }
-        $scope.bigCurrentPage = 1;
+        }
     }
         
 
