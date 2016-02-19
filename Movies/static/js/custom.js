@@ -22,7 +22,7 @@ angular.module("movieApp", ['ui.bootstrap'])
     $scope.maxSize = 5;
     $scope.bigTotalItems = 0;
     $scope.bigCurrentPage = 1;
-    $scope.itemPerPage = 1;
+    $scope.itemPerPage = 10;
 
     var getMovieList = function(){
         $http.post('/movies_by_filter/',{pageNo: $scope.bigCurrentPage, itemPerPage: $scope.itemPerPage, selectedFilterList: $scope.selectedFilterList}).
