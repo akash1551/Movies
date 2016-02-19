@@ -102,6 +102,7 @@ angular.module("movieApp", ['ui.bootstrap', 'angular-loading-bar'])
             console.log($scope.selectedFilterList)
             getMovieList();
             }
+        $scope.bigCurrentPage = 1;
     }
         
 
