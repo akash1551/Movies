@@ -54,6 +54,10 @@ angular.module("movieApp", ['ui.bootstrap'])
         getMovieList();
     };
 
+     $scope.setPage = function (pageNo) {
+        $scope.currentPage = pageNo;
+      };
+
     var searchFilter = function(){
         $http({method: 'GET', url: '/filter/list/'})
             .then(function successCallback(response) {
