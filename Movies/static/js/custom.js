@@ -12,7 +12,10 @@ $(document).ready(function() {
     });
 });
 
-angular.module("movieApp", ['ui.bootstrap'])
+angular.module("movieApp", ['ui.bootstrap', 'angular-loading-bar'])
+.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+    cfpLoadingBarProvider.includeSpinner = true;
+  }])
 .controller("movieCtrl", function($scope,$http){
 
     $scope.selectedFilterList = []
@@ -84,6 +87,7 @@ angular.module("movieApp", ['ui.bootstrap'])
             $scope.sortByList[i].isSelected = false;
         }
         $scope.selectedFilterList = []
+        getMovieList();
     }
 
     $scope.clickFilter = function(obj){
