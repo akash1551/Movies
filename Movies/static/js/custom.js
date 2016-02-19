@@ -20,9 +20,9 @@ angular.module("movieApp", ['ui.bootstrap'])
     $scope.recordNotFound = '';
 
     $scope.maxSize = 5;
-    $scope.bigTotalItems = 2;
+    $scope.bigTotalItems = 0;
     $scope.bigCurrentPage = 1;
-    $scope.itemPerPage = 10;
+    $scope.itemPerPage = 1;
 
     var getMovieList = function(){
         $http.post('/movies_by_filter/',{pageNo: $scope.bigCurrentPage, itemPerPage: $scope.itemPerPage, selectedFilterList: $scope.selectedFilterList}).
@@ -47,16 +47,14 @@ angular.module("movieApp", ['ui.bootstrap'])
     }
 
 
-    $scope.pageChanged = function() {
+    $scope.pageChanged = function(page) {
+        console.log('Page: ' + page);
         console.log('Big Current Page: ' + $scope.bigCurrentPage);
         console.log('Big Total Items: ' + $scope.bigTotalItems);
         console.log('Max Size: ' + $scope.maxSize);
+        $scope.bigCurrentPage = page;
         getMovieList();
     };
-
-     $scope.setPage = function (pageNo) {
-        $scope.currentPage = pageNo;
-      };
 
     var searchFilter = function(){
         $http({method: 'GET', url: '/filter/list/'})
