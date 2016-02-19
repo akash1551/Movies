@@ -7,7 +7,7 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
 </head>
-<body ng-cloak>
+<body ng-cloak ng-controller="movieCtrl">
 {% verbatim %}
 <div class="well well-sm">
   <strong>Movies</strong>
@@ -16,15 +16,17 @@
     </span>List</a> 
     <a href="#" id="grid" class="btn btn-default btn-sm"><span
     class="glyphicon glyphicon-th"></span>Grid</a>
+    <a ng-click="clearFilter()" id="grid" class="btn btn-default btn-sm"><span
+    class="glyphicon glyphicon-th"></span>Clear Filter</a>
   </div>
 </div>
-  <div class="container-fluid" ng-controller="movieCtrl">
+  <div class="container-fluid">
     <div class="row">
     <div class="col-xs-3 col-lg-3 well">
         <div class="well" style="width:100%; margin-bottom:5px; padding:10px;" ng-click="isCollapsedLanguage = !isCollapsedLanguage">Language <i class="fa fa-angle-double-right pull-right" ng-show="isCollapsedLanguage"></i><i class="fa fa-angle-double-down pull-right" ng-show="!isCollapsedLanguage"></i></div>
         <div uib-collapse="isCollapsedLanguage" class="in collapse" aria-expanded="true" aria-hidden="false" style="height: auto;">
         <div class="well" style="max-height: 200px; overflow-y: scroll;">
-            <div ng-repeat="i in lenguageList">
+            <div ng-repeat="i in languageList">
             <div ng-click="clickFilter(i)" style="cursor: pointer;  cursor: hand;">
               <i class="fa fa-fw fa-square-o" ng-show="!i.isSelected"></i>
               <i class="fa fa-fw fa-check-square-o" ng-show="i.isSelected"></i> &nbsp;&nbsp;{{i.name}}

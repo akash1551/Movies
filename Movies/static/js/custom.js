@@ -35,6 +35,7 @@ angular.module("movieApp", ['ui.bootstrap'])
                     console.log('Big Current Page: ' + $scope.bigCurrentPage);
                     console.log('Big Total Items: ' + $scope.bigTotalItems);
                     console.log('Max Size: ' + $scope.maxSize);
+                    $scope.recordNotFound = ''
                 }else{
                     $scope.recordNotFound = data.validation;
                     $scope.movieList = []
@@ -44,6 +45,7 @@ angular.module("movieApp", ['ui.bootstrap'])
                 console.log(data);
             });
     }
+
 
     $scope.pageChanged = function() {
         console.log('Big Current Page: ' + $scope.bigCurrentPage);
@@ -56,7 +58,7 @@ angular.module("movieApp", ['ui.bootstrap'])
         $http({method: 'GET', url: '/filter/list/'})
             .then(function successCallback(response) {
                 $scope.genreList = response.data.genreList;
-                $scope.lenguageList = response.data.languageList;
+                $scope.languageList = response.data.languageList;
                 $scope.sortByList = response.data.sortByList;
             }, function errorCallback(response) {
                
@@ -68,6 +70,19 @@ angular.module("movieApp", ['ui.bootstrap'])
         getMovieList();
     }
     init();
+
+    $scope.clearFilter = function(){
+        for(var i=0; i < $scope.genreList.length; i++){
+            $scope.genreList[i].isSelected = false;
+        }
+        for(var i=0; i < $scope.languageList.length; i++){
+            $scope.languageList[i].isSelected = false;
+        }
+        for(var i=0; i < $scope.sortByList.length; i++){
+            $scope.sortByList[i].isSelected = false;
+        }
+        $scope.selectedFilterList = []
+    }
 
     $scope.clickFilter = function(obj){
         obj.isSelected=!obj.isSelected;
