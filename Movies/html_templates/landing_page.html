@@ -21,9 +21,9 @@
   <div class="container-fluid" ng-controller="movieCtrl">
     <div class="row">
     <div class="col-xs-3 col-lg-3 well">
-        <div class="well" style="width:100%; margin-bottom:5px; padding:10px;" ng-click="isCollapsedLanguage = !isCollapsedLanguage">Language</div>
+        <div class="well" style="width:100%; margin-bottom:5px; padding:10px;" ng-click="isCollapsedLanguage = !isCollapsedLanguage">Language <i class="fa fa-angle-double-right pull-right" ng-show="isCollapsedLanguage"></i><i class="fa fa-angle-double-down pull-right" ng-show="!isCollapsedLanguage"></i></div>
         <div uib-collapse="isCollapsedLanguage" class="in collapse" aria-expanded="true" aria-hidden="false" style="height: auto;">
-        <div class="well">
+        <div class="well" style="max-height: 200px; overflow-y: scroll;">
             <div ng-repeat="i in lenguageList">
             <div ng-click="clickFilter(i)" style="cursor: pointer;  cursor: hand;">
               <i class="fa fa-fw fa-square-o" ng-show="!i.isSelected"></i>
@@ -33,7 +33,7 @@
         </div>
         </div>
 
-        <div class="well" style="width:100%; margin-bottom:5px; padding:10px;" ng-click="isCollapsedGenere = !isCollapsedGenere">Genre</div>
+        <div class="well" style="width:100%; margin-bottom:5px; padding:10px;" ng-click="isCollapsedGenere = !isCollapsedGenere">Genre<i class="fa fa-angle-double-right pull-right" ng-show="isCollapsedGenere"></i><i class="fa fa-angle-double-down pull-right" ng-show="!isCollapsedGenere"></i></div>
         <div uib-collapse="isCollapsedGenere" class="in collapse" aria-expanded="true" aria-hidden="false">
         <div class="well" style="max-height: 200px; overflow-y: scroll;">
           <div ng-repeat="i in genreList">
@@ -45,9 +45,9 @@
         </div>
         </div>
 
-        <div class="well" style="width:100%; margin-bottom:5px; padding:10px;" ng-click="isCollapsedSortBy = !isCollapsedSortBy">Sort By</div>
+        <div class="well" style="width:100%; margin-bottom:5px; padding:10px;" ng-click="isCollapsedSortBy = !isCollapsedSortBy">Sort By<i class="fa fa-angle-double-right pull-right" ng-show="isCollapsedSortBy"></i><i class="fa fa-angle-double-down pull-right" ng-show="!isCollapsedSortBy"></i></div>
         <div uib-collapse="isCollapsedSortBy" class="in collapse" aria-expanded="true" aria-hidden="false" style="height: auto;">
-        <div class="well">
+        <div class="well" style="max-height: 200px; overflow-y: scroll;">
             <div ng-repeat="i in sortByList">
               <div ng-click="clickFilter(i, event)" style="cursor: pointer;  cursor: hand;">
                 <i class="fa fa-fw fa-square-o" ng-show="!i.isSelected"></i>
